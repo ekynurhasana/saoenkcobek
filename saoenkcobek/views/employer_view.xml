@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="employee_view_tree" model="ir.ui.view">
+        <field name="name">employee.view.tree</field>
+        <field name="model">employee</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_name"/>
+                <field name="branch"/>
+                <field name="job_position"/>
+                <field name="employee_status"/>
+                <field name="email"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="employee_view_form" model="ir.ui.view">
+        <field name="name">employee.view.form</field>
+        <field name="model">employee</field>
+        <field name="arch" type="xml">
+            <form string="employee">
+                <sheet>
+                    <group>
+                        <field name="employee_name"/>
+                        <field name="branch"/>
+                        <field name="job_position"/>
+                        <field name="employee_status"/>
+                        <field name="email"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definisi tindakan jendela -->
+    <record id="employee_action" model="ir.actions.act_window">
+        <field name="name">Employee</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">employee</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+    <menuitem
+        id="saoenkcobek_employee_menu_act"
+        name="Employee"
+        parent="saoenkcobek_employee_menu_categ"
+        action="employee_action"
+        />
+</odoo>

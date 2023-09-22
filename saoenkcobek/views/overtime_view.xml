@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="overtime_view_tree" model="ir.ui.view">
+        <field name="name">overtime.view.tree</field>
+        <field name="model">overtime</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_name"/>
+                <field name="request_overtime_date"/>
+                <field name="overtime_date"/>
+                <field name="overtime_duration"/>
+                <field name="overtime_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="overtime_view_form" model="ir.ui.view">
+        <field name="name">overtime.view.form</field>
+        <field name="model">overtime</field>
+        <field name="arch" type="xml">
+            <form string="Service Team">
+            
+                <sheet>
+                    <group>
+                     <field name="employee_name"/>
+                    <field name="request_overtime_date"/>
+                    <field name="overtime_date"/>
+                    <field name="overtime_duration"/>
+                    <field name="overtime_status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definisi tindakan jendela -->
+    <record id="overtime_action" model="ir.actions.act_window">
+        <field name="name">Overtime</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">overtime</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+     <menuitem
+        id="saoenkcobek_overtime_menu_act"
+        name="Overtime"
+        parent="saoenkcobek_attandance_menu_categ"
+        action="overtime_action"
+        />
+<!-- 
+     <menuitem
+        id="saoenkcobek_menu_act"
+        name="attandance"
+        parent="saoenkcobek_menu_categ"
+        action="attandance_action"
+        /> -->
+</odoo>

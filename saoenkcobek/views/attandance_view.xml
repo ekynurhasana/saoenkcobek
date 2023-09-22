@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="attendance_view_tree" model="ir.ui.view">
+        <field name="name">Attandance Tree View</field>
+        <field name="model">attandance</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employer_name"/>
+                <field name="date_attendance"/>
+                <field name="shift"/>
+                <field name="schedule_in"/>
+                <field name="schedule_out"/>
+                <field name="attandance_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="attandance_view_form" model="ir.ui.view">
+        <field name="name">Attandance Form View</field>
+        <field name="model">attandance</field>
+        <field name="arch" type="xml">
+            <form string=" attandance">
+            
+                <sheet>
+                    <group>
+                        <field name="employer_name"/>
+                        <field name="date_attendance"/>
+                        <field name="shift"/>
+                        <field name="schedule_in"/>
+                        <field name="schedule_out"/>
+                        <field name="attandance_status"/>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definisi tindakan jendela -->
+    <record id="attandance_action" model="ir.actions.act_window">
+        <field name="name">Attandance</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">attandance</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+
+     <menuitem
+        id="saoenkcobek_menu_act"
+        name="Attandance"
+        parent="saoenkcobek_attandance_menu_categ"
+        action="attandance_action"
+        />
+</odoo>

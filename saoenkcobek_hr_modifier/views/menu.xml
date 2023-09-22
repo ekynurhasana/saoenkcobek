@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <record model="ir.ui.menu" id="hr.menu_hr_root">
+        <field name="active" eval="False"/>
+    </record>
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_root">
+        <field name="active" eval="False"/>
+    </record>
+
+
+    <menuitem
+        id="saoenkcobek_hrm_parent_menu"
+        name="HRM Saoenk Cobek"
+        sequence="0"/>
+
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_my_attendances">
+        <field name="parent_id" ref="saoenkcobek_hrm_parent_menu"/>
+        <field name="sequence" eval="1"/>
+    </record>
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_manage_attendances">
+        <field name="name">Attendance Management</field>
+        <field name="parent_id" ref="saoenkcobek_hrm_parent_menu"/>
+        <field name="sequence" eval="2"/>
+    </record>
+    <record model="ir.ui.menu" id="hr_attendance.menu_hr_attendance_view_employees_kanban">
+        <field name="active" eval="False"/>
+    </record>
+    <record model="ir.ui.menu" id="hr.menu_hr_employee_payroll">
+        <field name="name">Employee Management</field>
+        <field name="parent_id" ref="saoenkcobek_hrm_parent_menu"/>
+        <field name="sequence" eval="3"/>
+    </record>
+    <record model="ir.ui.menu" id="hr.menu_hr_department_kanban">
+        <field name="parent_id" ref="hr.menu_hr_employee_payroll"/>
+        <field name="sequence" eval="2"/>
+    </record>
+    
+    <menuitem id="hrm_config" name="Configuration" parent="saoenkcobek_hrm_parent_menu" sequence="4"/>
+
+    <record model="ir.ui.menu" id="hr.hr_menu_configuration">
+        <field name="parent_id" ref="hrm_config"/>
+        <field name="sequence" eval="1"/>
+    </record>
+
+    <menuitem id="hrm_attendance_config" name="Attendance" parent="hrm_config" sequence="2"/>
+
+    <record model="ir.ui.menu" id="hr.menu_human_resources_configuration_employee">
+        <field name="parent_id" ref="hrm_config"/>
+        <field name="sequence" eval="3"/>
+    </record>
+    <record model="ir.ui.menu" id="hr.menu_view_hr_job">
+        <field name="parent_id" ref="hr.menu_human_resources_configuration_employee"/>
+        <field name="sequence" eval="2"/>
+    </record>
+    <record model="ir.ui.menu" id="hr.menu_hr_department_tree">
+        <field name="parent_id" ref="hr.menu_human_resources_configuration_employee"/>
+        <field name="sequence" eval="3"/>
+    </record>
+
+</odoo>

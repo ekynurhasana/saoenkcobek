@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_shift,access_hr_shift,model_hr_shift,,1,1,1,1
+access_hr_assign_work_time,access_hr_assign_work_time,model_hr_assign_work_time,,1,1,1,1
+access_hr_assign_work_time_line,access_hr_assign_work_time_line,model_hr_assign_work_time_line,,1,1,1,1

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="hr_assign_work_time_form_view" model="ir.ui.view">
+        <field name="name">hr.assign.work.time.form.view</field>
+        <field name="model">hr.assign.work.time</field>
+        <field name="arch" type="xml">
+            <form string="Assign Work Time">
+                <header>
+                    <button name="action_approved" string="Approved" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="action_rejected" string="Reject" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="create_employee_attendance" string="Create Employee Attendance" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','approved')]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,approved,rejected,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only" />
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="leader_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                    </group>
+                </sheet>
+                <notebook>
+                    <page string="Assign Work Time">
+                        <field name="work_time_ids" nolabel="1">
+                            <tree editable="bottom">
+                                <field name="employee_id"/>
+                                <field name="date"/>
+                                <field name="shift_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_assign_work_time_tree_view" model="ir.ui.view">
+        <field name="name">hr.assign.work.time.tree.view</field>
+        <field name="model">hr.assign.work.time</field>
+        <field name="arch" type="xml">
+            <tree string="Assign Work Time">
+                <field name="name"/>
+                <field name="leader_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="hr_assign_work_time_search_view" model="ir.ui.view">
+        <field name="name">hr.assign.work.time.search.view</field>
+        <field name="model">hr.assign.work.time</field>
+        <field name="arch" type="xml">
+            <search string="Assign Work Time">
+                <field name="name"/>
+                <field name="leader_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="state"/>
+                <filter string="My Assign Work Time" name="my_assign_work_time" domain="[('leader_id','in',[uid])]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="hr_assign_work_time_action" model="ir.actions.act_window">
+        <field name="name">Assign Work Time</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.assign.work.time</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="hr_assign_work_time_search_view"/>
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem id="hr_assign_work_time_menu" name="Assign Work Time" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="hr_assign_work_time_action" sequence="1"/>
+
+</odoo>

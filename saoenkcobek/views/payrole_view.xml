@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="payrole_view_tree" model="ir.ui.view">
+        <field name="name">payrole.view.tree</field>
+        <field name="model">payrole</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employer_name"/>
+                <field name="basic_salary"/>
+                <field name="allowance"/>
+                <field name="benefit"/>
+                <field name="deducation"/>
+                <field name="total_salary"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="payrole_view_form" model="ir.ui.view">
+        <field name="name">payrole.view.form</field>
+        <field name="model">payrole</field>
+        <field name="arch" type="xml">
+            <form string="timeoff">
+                <sheet>
+                    <group>
+                        <field name="employer_name"/>
+                        <field name="basic_salary"/>
+                        <field name="allowance"/>
+                        <field name="benefit"/>
+                        <field name="deducation"/>
+                        <field name="total_salary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definisi tindakan jendela -->
+    <record id="payrole_action" model="ir.actions.act_window">
+        <field name="name">Payrole</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payrole</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+     <menuitem
+        id="saoenkcobek_payrole_menu_act"
+        name="Payrole"
+        parent="saoenkcobek_payrole_menu_categ"
+        action="payrole_action"
+        />
+</odoo>

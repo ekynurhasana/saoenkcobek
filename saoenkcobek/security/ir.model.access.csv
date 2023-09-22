@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_overtime,access.overtime,model_overtime,,1,1,1,1
+access_attandance,access.attandance,model_attandance,,1,1,1,1
+access_payrole,access.payrole,model_payrole,,1,1,1,1
+access_evaluasi,access.evaluasi,model_evaluasi,,1,1,1,1
+access_timeoff,access.timeoff,model_timeoff,,1,1,1,1
+access_employee,access.employee,model_employee,,1,1,1,1

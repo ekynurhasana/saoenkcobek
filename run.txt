@@ -1,0 +1,1 @@
+"C:\Program Files\Odoo 14.0.20220202\python\python.exe" "C:\Program Files\Odoo 14.0.20220202\server\odoo-bin" --addons-path="C:\Program Files\Odoo 14.0.20220202\server\odoo\addons","D:\dini"

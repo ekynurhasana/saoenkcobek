@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="timeoff_view_tree" model="ir.ui.view">
+        <field name="name">timeoff.view.tre</field>
+        <field name="model">timeoff</field>
+        <field name="arch" type="xml">
+          
+            <tree>
+                <field name="employee_id"/>
+                <field name="time_off_type"/>
+                <field name="description"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="duration"/>
+                <field name="status"/>
+
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="timeoff_view_form" model="ir.ui.view">
+        <field name="name">timeoff.view.form</field>
+        <field name="model">timeoff</field>
+        <field name="arch" type="xml">
+            <form string="timeoff">
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="time_off_type"/>
+                        <field name="description"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="duration"/>
+                        <field name="status"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Definisi tindakan jendela -->
+    <record id="timeoff_action" model="ir.actions.act_window">
+        <field name="name">timeoff</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">timeoff</field>
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+
+    <menuitem
+        id="saoenkcobek_timeoff_menu_act"
+        name="Time-off"
+        parent="saoenkcobek_attandance_menu_categ"
+        action="timeoff_action"
+        />
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- This Menu Item will appear in the Upper bar, that's why It needs NO parent or action -->
+    <menuitem
+        id="saoenkcobek_menu_root"
+        name="Saoenk Cobek"
+        sequence="10"/>
+    
+     <menuitem
+        id="saoenkcobek_attandance_menu_categ"
+        name="Attandance"
+        parent="saoenkcobek_menu_root"
+        sequence="10"/>
+    
+     <menuitem
+        id="saoenkcobek_payrole_menu_categ"
+        name="Payrole"
+        parent="saoenkcobek_menu_root"
+        sequence="10"/>
+      
+      <menuitem
+        id="saoenkcobek_employee_menu_categ"
+        name="Employee"
+        parent="saoenkcobek_menu_root"
+        sequence="10"/>
+
+    </odoo>
