@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="hr_attendance.view_attendance_tree_inherit" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="groups_id" eval="[(4, ref('hr_attendance.group_hr_attendance_user'))]"/>
+        <field name="arch" type="xml">
+            <tree position="attributes">
+                <attribute name="edit">1</attribute>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_attendance_tree_inherit_saoenkcobek" model="ir.ui.view">
+        <field name="name">hr.attendance.tree.inherit</field>
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='employee_id']" position="after">
+                <field name="plan_check_in"/>
+                <field name="plan_check_out"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='worked_hours']" position="before">
+                <field name="absent_type"/>
+                <field name="attendance_state"/>
+            </xpath>
+            <xpath expr="//tree/field[@name='worked_hours']" position="after">
+                <field name="late"/>
+                <field name="over_time"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_attendance_view_form_inherit_saoenkcobek" model="ir.ui.view">
+        <field name="model">hr.attendance</field>
+        <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet" position="before">
+                <header>
+                    <button name="request_edit" string="Request Edit" type="object" class="oe_highlight"/>
+                    <button name="approve_edit" string="Approve Edit" type="object" class="oe_highlight" attrs="{'invisible':[('is_request_edit','=',False)]}" groups="saoenkcobek_hr_modifier.group_timeoff_approver"/>
+                    <field name="is_request_edit" invisible="1"/>
+                    <field name="is_approve_edit" invisible="1"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="plan_check_in" attrs="{'readonly':[('is_approve_edit','=',False)]}"/>
+                <field name="plan_check_out" attrs="{'readonly':[('is_approve_edit','=',False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='employee_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='check_in']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='check_out']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//form/sheet" position="inside">
+                <group>
+                    <field name="absent_type" attrs="{'readonly':[('is_approve_edit','=',False)]}"/>
+                    <field name="attendance_state" readonly="1"/>
+                </group>
+                <group>
+                    <field name="worked_hours" widget="float_time"/>
+                    <field name="late" widget="float_time"/>
+                    <field name="over_time" widget="float_time"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

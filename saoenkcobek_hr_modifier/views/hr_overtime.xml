@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="hr_overtime" model="ir.ui.view">
+        <field name="name">hr.overtime</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="ask_approval" string="Request Approval" type="object" class="oe_highlight"/>
+                    <button name="approve" string="Approve" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['waiting'])]}" groups="saoenkcobek_hr_modifier.group_over_time_approver"/>
+                    <button name="reject" string="Reject" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['waiting'])]}" groups="saoenkcobek_hr_modifier.group_over_time_approver"/>
+                    <button name="validate" string="Validate" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['approved'])]}"/>
+                    <button name="cancel" string="Cancel" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['draft','waiting','approved','validate'])]}"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,waiting,approved,validate,rejected,cancel"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="date"/>
+                            <field name="hour"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="hr_overtime_tree" model="ir.ui.view">
+        <field name="name">hr.overtime.tree</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <tree string="Overtime">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="hour"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_hr_overtime" model="ir.actions.act_window">
+        <field name="name">Overtime</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.overtime</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_hr_overtime" name="Overtime" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="action_hr_overtime" sequence="30"/>
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record model="hr.payroll.type" id="payroll_type_1">
+            <field name="name">Basic Salary</field>
+            <field name="code">BASIC</field>
+        </record>
+    </data>    
+</odoo>

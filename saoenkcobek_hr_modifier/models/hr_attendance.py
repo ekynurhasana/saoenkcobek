@@ -8,9 +8,20 @@ class HrAttendance(models.Model):
     plan_check_in = fields.Datetime(string='Plan Check In')
     plan_check_out = fields.Datetime(string='Plan Check Out')
     attendance_state = fields.Selection([('draft', 'Draft'), ('checked_in', 'Checked In'), ('checked_out', 'Checked Out'), ('absent', 'Absent')], string='Attendance State', default='draft')
+    absent_type = fields.Selection([('hadir', 'Hadir'), ('cuti_tahunan', 'Cuti Tahunan'), ('izin', 'Izin'), ('sakit', 'Sakit')], string='Absent Type', default='hadir')
     late = fields.Float(string='Late', compute='_compute_late')
     over_time = fields.Float(string='Over Time', compute='_compute_over_time')
     work_time_id = fields.Many2one('hr.assign.work.time', string='Work Time')
+    is_request_edit = fields.Boolean(string='Is Request Edit')
+    # is_approved_edit = fields.Boolean(string='Is Approved Edit')
+    is_approve_edit = fields.Boolean(string='Is Approve Edit')
+    
+    def request_edit(self):
+        self.is_request_edit = True
+    
+    def approve_edit(self):
+        self.is_approve_edit = True
+        self.is_request_edit = False
     
     @api.depends('check_in', 'plan_check_in')
     def _compute_late(self):

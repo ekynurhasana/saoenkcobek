@@ -36,7 +36,9 @@
         <field name="sequence" eval="2"/>
     </record>
     
-    <menuitem id="hrm_config" name="Configuration" parent="saoenkcobek_hrm_parent_menu" sequence="4"/>
+    <menuitem id="hrm_payroll" name="Payroll Management" parent="saoenkcobek_hrm_parent_menu" sequence="4"/>
+    
+    <menuitem id="hrm_config" name="Configuration" parent="saoenkcobek_hrm_parent_menu" sequence="5"/>
 
     <record model="ir.ui.menu" id="hr.hr_menu_configuration">
         <field name="parent_id" ref="hrm_config"/>
@@ -57,5 +59,8 @@
         <field name="parent_id" ref="hr.menu_human_resources_configuration_employee"/>
         <field name="sequence" eval="3"/>
     </record>
+
+    <menuitem id="hrm_payroll_config" name="Payroll" parent="hrm_config" sequence="3"/>
+
 
 </odoo>
