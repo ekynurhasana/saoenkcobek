@@ -30,8 +30,7 @@ class HrEmployee(models.Model):
                 ('employee_id', '=', self.id),
                 ('plan_date', '=', date_now),
                 ('attendance_state', '=', 'draft'),
-                ('absent_type' '=', 'hadir')
-            ], limit=1)
+                ('absent_type', '=', 'hadir')], limit=1)
             if attendance_plan:
                 attendance_plan.check_in = action_date
                 attendance_plan.attendance_state = 'checked_in'
