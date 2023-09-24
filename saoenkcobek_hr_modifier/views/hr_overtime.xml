@@ -26,6 +26,19 @@
         </field>
     </record>
 
+    <record id="hr_overtime_pivot" model="ir.ui.view">
+        <field name="name">hr.overtime.pivot</field>
+        <field name="model">hr.overtime</field>
+        <field name="arch" type="xml">
+            <pivot string="Overtime" disable_linking="True">
+                <field name="employee_id" type="row"/>
+                <field name="date" type="col"/>
+                <field name="hour" type="measure"/>
+                <field name="overtime_amount" type="measure" string="Overtime Amount"/>
+            </pivot>
+        </field>
+    </record>
+
     <record id="hr_overtime_tree" model="ir.ui.view">
         <field name="name">hr.overtime.tree</field>
         <field name="model">hr.overtime</field>
@@ -44,7 +57,7 @@
         <field name="name">Overtime</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">hr.overtime</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
     </record>
 
     <menuitem id="menu_hr_overtime" name="Overtime" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="action_hr_overtime" sequence="30"/>
