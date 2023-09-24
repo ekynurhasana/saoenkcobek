@@ -5,9 +5,15 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='%(hr.plan_wizard_action)d']" position="before">
+                <button name="action_set_last_attendance" string="Set Last Attendance" type="object" class="oe_highlight" groups="saoenkcobek_hr_modifier.group_work_time_approver"/>
+            </xpath>
             <xpath expr="//div[@id='o_work_employee_main']" position="inside">
                 <group string="Salary">
                     <field name="basic_salary" required="1"/>
+                </group>
+                <group string="Attendance">
+                    <field name="last_attendance_id"/>
                 </group>
             </xpath>
         </field>

@@ -14,4 +14,8 @@
         <field name="name">Over Time Approver</field>
         <field name="category_id" ref="saoenkcobek_hr_modifier.group_approver"/>
     </record>
+    <record id="group_work_time_approver" model="res.groups">
+        <field name="name">Work Time Approver</field>
+        <field name="category_id" ref="saoenkcobek_hr_modifier.group_approver"/>
+    </record>
 </odoo>

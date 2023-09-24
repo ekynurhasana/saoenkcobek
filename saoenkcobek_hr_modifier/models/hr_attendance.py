@@ -46,6 +46,35 @@ class HrAttendance(models.Model):
             else:
                 attendance.over_time = 0.0
     
+    def create_over_time(self):
+        min_hour = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.overtime_minimum_hour')
+        print(min_hour, 'min_hour')
+        overtime = self.env['hr.overtime'].search([('attendance_id', '=', self.id)])
+        if overtime:
+            raise exceptions.ValidationError(_("Over Time already created."))
+        if float(self.over_time) > float(min_hour):
+            self.env['hr.overtime'].create({
+                'employee_id': self.employee_id.id,
+                'attendance_id': self.id,
+                'date': self.plan_date,
+                'hour': self.over_time
+            })
+        else:
+            raise exceptions.ValidationError(_("Over Time must be greater than %s hour(s).") % (min_hour))
+    
+    def action_view_overtime(self):
+        overtime = self.env['hr.overtime'].search([('attendance_id', '=', self.id)], limit=1)
+        if not overtime:
+            raise exceptions.ValidationError(_("Over Time not found."))
+        return {
+            'name': _('Overtime'),
+            'view_mode': 'form',
+            'res_model': 'hr.overtime',
+            'type': 'ir.actions.act_window',
+            'target': 'new',
+            'domain': [('attendance_id', '=', self.id)]
+        }
+    
     @api.constrains('check_in', 'check_out', 'employee_id')
     def _check_validity(self):
         """ Verifies the validity of the attendance record compared to the others from the same employee.

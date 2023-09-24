@@ -4,15 +4,22 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
     
     basic_salary = fields.Float(string='Basic Salary')
+    last_attendance_id = fields.Many2one('hr.attendance', compute='_compute_last_attendance_id', store=True)
+    
+    def action_set_last_attendance(self):
+        _attendance = self._compute_last_attendance_id()
+        return _attendance
     
     @api.depends('attendance_ids')
     def _compute_last_attendance_id(self):
         for employee in self:
-            employee.last_attendance_id = self.env['hr.attendance'].search([
+            attendance = self.env['hr.attendance'].search([
                 ('employee_id', '=', employee.id),
                 ('absent_type', '=', 'hadir'),
                 ('attendance_state', 'in', ['checked_in', 'checked_out'])
-            ], order='id desc', limit=1)
+            ], limit=1)
+            employee.last_attendance_id = attendance.id
+            print(employee.last_attendance_id, 'employee.last_attendance_id')
     
     def _attendance_action_change(self):
         """ Check In/Check Out action
@@ -50,15 +57,18 @@ class HrEmployee(models.Model):
         attendance = self.env['hr.attendance'].search([
             ('employee_id', '=', self.id),
             ('plan_date', '=', date_now),
-            ('attendance_state', '=', 'checked_in')
+            ('attendance_state', '=', 'checked_in'),
             ('check_out', '=', False)
         ], limit=1)
         if attendance:
             attendance.check_out = action_date
+            attendance.attendance_state = 'checked_out'
             if location:
                 attendance.check_out_latitude = latit
                 attendance.check_out_longitude = longit
         else:
             raise exceptions.UserError(_('Cannot perform check out on %(empl_name)s, could not find corresponding check in. '
                 'Your attendances have probably been modified manually by human resources.') % {'empl_name': self.sudo().name, })
+        employee = self.env['hr.employee'].search([('id', '=', self.id)])
+        employee.action_set_last_attendance()
         return attendance

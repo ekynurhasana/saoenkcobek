@@ -6,8 +6,8 @@
         <field name="arch" type="xml">
             <form string="Assign Work Time">
                 <header>
-                    <button name="action_approved" string="Approved" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
-                    <button name="action_rejected" string="Reject" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}"/>
+                    <button name="action_approved" string="Approved" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}" groups="saoenkcobek_hr_modifier.group_work_time_approver"/>
+                    <button name="action_rejected" string="Reject" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','draft')]}" groups="saoenkcobek_hr_modifier.group_work_time_approver"/>
                     <button name="create_employee_attendance" string="Create Employee Attendance" type="object" class="oe_highlight" attrs="{'invisible':[('state','!=','approved')]}"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,approved,rejected,done"/>
                 </header>
@@ -63,7 +63,7 @@
                 <field name="start_date"/>
                 <field name="end_date"/>
                 <field name="state"/>
-                <filter string="My Assign Work Time" name="my_assign_work_time" domain="[('leader_id','in',[uid])]"/>
+                <filter string="My Assign Work Time" name="my_assign_work_time" domain="[('leader_id.user_id','in',[uid])]"/>
             </search>
         </field>
     </record>
@@ -74,7 +74,7 @@
         <field name="res_model">hr.assign.work.time</field>
         <field name="view_mode">tree,form</field>
         <field name="search_view_id" ref="hr_assign_work_time_search_view"/>
-        <field name="context">{}</field>
+        <field name="context">{"search_default_my_assign_work_time":1}</field>
     </record>
 
     <menuitem id="hr_assign_work_time_menu" name="Assign Work Time" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="hr_assign_work_time_action" sequence="1"/>

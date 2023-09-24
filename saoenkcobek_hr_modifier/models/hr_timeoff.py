@@ -44,7 +44,8 @@ class HrTimeoff(models.Model):
         
     def validate(self):
         attendance_obj = self.env['hr.attendance']
-        attendance_ids = attendance_obj.search([('employee_id', '=', self.employee_id.id), ('check_in', '>=', self.start_date), ('check_in', '<=', self.end_date)])
+        attendance_ids = attendance_obj.search([('employee_id', '=', self.employee_id.id), ('plan_date', '>=', self.start_date), ('plan_date', '<=', self.end_date)])
+        print(attendance_ids)
         for attendance in attendance_ids:
             attendance.absent_type = self.time_off_type
         self.status = 'validate'

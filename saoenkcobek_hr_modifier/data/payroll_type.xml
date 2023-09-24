@@ -1,9 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
-        <record model="hr.payroll.type" id="payroll_type_1">
+        <record model="hr.payroll.type" id="payroll_type_basic">
             <field name="name">Basic Salary</field>
             <field name="code">BASIC</field>
+        </record>
+        <record model="hr.payroll.type" id="payroll_type_ot">
+            <field name="name">Overtime Bonus</field>
+            <field name="code">OT</field>
+        </record>
+        <record model="hr.payroll.type" id="payroll_type_late">
+            <field name="name">Late Deduction</field>
+            <field name="code">LATE</field>
+            <field name="is_deduction">1</field>
         </record>
     </data>    
 </odoo>

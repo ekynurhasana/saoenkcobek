@@ -31,6 +31,6 @@ class HrPayrollType(models.Model):
     
     def unlink(self):
         for payroll_type in self:
-            if payroll_type.code == 'BASIC':
-                raise exceptions.ValidationError(_('You cannot delete Basic Salary Component'))
+            if payroll_type.code in ['BASIC', 'LATE', 'OT']:
+                raise exceptions.ValidationError(_('You cannot delete %s component') % (payroll_type.name))
         return super(HrPayrollType, self).unlink()

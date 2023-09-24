@@ -39,10 +39,23 @@
             <xpath expr="//form/sheet" position="before">
                 <header>
                     <button name="request_edit" string="Request Edit" type="object" class="oe_highlight"/>
-                    <button name="approve_edit" string="Approve Edit" type="object" class="oe_highlight" attrs="{'invisible':[('is_request_edit','=',False)]}" groups="saoenkcobek_hr_modifier.group_timeoff_approver"/>
+                    <button name="approve_edit" string="Approve Edit" type="object" class="oe_highlight" attrs="{'invisible':[('is_request_edit','=',False)]}" groups="saoenkcobek_hr_modifier.group_work_time_approver"/>
+                    <button name="create_over_time" string="Create Over Time" type="object" class="oe_highlight" attrs="{'invisible':['|',('absent_type','!=','hadir'),('attendance_state','!=','checked_out')]}"/>
                     <field name="is_request_edit" invisible="1"/>
                     <field name="is_approve_edit" invisible="1"/>
                 </header>
+            </xpath>
+            <xpath expr="//form/sheet/group" position="before">
+                <div name="button_box" class="oe_button_box">
+                    <button
+                        name="action_view_overtime"
+                        string="View Over Time"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-clock-o"
+                        attrs="{'invisible':['|',('absent_type','!=','hadir'),('attendance_state','!=','checked_out')]}"/>
+                        
+                </div>
             </xpath>
             <xpath expr="//field[@name='employee_id']" position="after">
                 <field name="plan_date" attrs="{'readonly':[('is_approve_edit','=',False)]}"/>

@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="res_config_settings_view_form_inherit" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.hr.attendance</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_attendance.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='hr_attendance']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+            <xpath expr="//div[@data-key='hr_attendance']" position="inside">
+                <h2>Over Time</h2>
+                <div class="row mt16 o_settings_container" name="overtime_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" title="Set overtime rules">
+                        <div class="o_setting_right_pane">
+                            <div class="o_setting_item">
+                                <label for="overtime_minimum_hour" class="o_form_label">Overtime Minimum Hour</label>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Minimum hour to be considered as overtime
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="overtime_minimum_hour" class="o_light_label" placeholder="Overtime Minimum Hour" />
+                                    </div>
+                                </div>
+                            </div><br/>
+                            <div class="o_setting_item">
+                                <label for="overtime_maximum_hour" class="o_form_label">Overtime Maximum Hour</label>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Maximum hour to be considered as overtime
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="overtime_maximum_hour" class="o_light_label" placeholder="Overtime Maximum Hour" />
+                                    </div>
+                                </div>
+                            </div><br/>
+                            <div class="o_setting_item">
+                                <label for="overtime_rate" class="o_form_label">Overtime Rate</label>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Rate for overtime hour
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="overtime_rate" class="o_light_label" placeholder="Overtime Rate" widget="monetary" options="{'currency_field': 'company_currency_id'}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

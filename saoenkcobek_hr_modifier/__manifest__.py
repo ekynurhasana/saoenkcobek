@@ -12,6 +12,7 @@
         'security/access_group.xml',
         'data/payroll_type.xml',
         'views/menu.xml',
+        'views/res_config_settings.xml',
         'views/hr_employee.xml',
         'views/hr_attendance.xml',
         'views/hr_shift.xml',
