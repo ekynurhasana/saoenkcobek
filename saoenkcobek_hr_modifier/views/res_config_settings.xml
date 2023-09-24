@@ -55,6 +55,39 @@
                         </div>
                     </div>
                 </div>
+                <h2>Late</h2>
+                <div class="row mt16 o_settings_container" name="overtime_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" title="Set overtime rules">
+                        <div class="o_setting_right_pane">
+                            <div class="o_setting_item">
+                                <label for="late_tolerance" class="o_form_label">Late Tolerance</label>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Time tolerance for late
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="late_tolerance" class="o_light_label" placeholder="Late Tolerance" />
+                                    </div>
+                                </div>
+                            </div><br/>
+                            <div class="o_setting_item">
+                                <label for="late_amount" class="o_form_label">Late Charge</label>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Charge for late per hour
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="late_amount" class="o_light_label" placeholder="Late Charge" widget="monetary" options="{'currency_field': 'company_currency_id'}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>

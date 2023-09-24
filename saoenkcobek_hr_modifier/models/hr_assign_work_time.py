@@ -19,6 +19,7 @@ class HrAssignWorkTime(models.Model):
             if self.start_date > self.end_date:
                 raise UserError(_('End date cannot be set before start date.'))
             else:
+                self.work_time_ids = False
                 employee = self.env['hr.employee'].search([('parent_id', '=', self.leader_id.id)])
                 start_date = self.start_date
                 end_date = self.end_date

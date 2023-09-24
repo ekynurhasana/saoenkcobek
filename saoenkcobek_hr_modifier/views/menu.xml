@@ -34,11 +34,12 @@
     <record model="ir.ui.menu" id="hr.menu_hr_department_kanban">
         <field name="parent_id" ref="hr.menu_hr_employee_payroll"/>
         <field name="sequence" eval="2"/>
+        <field name="groups_id" eval="[(6, 0, [ref('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader')])]"/>
     </record>
     
     <menuitem id="hrm_payroll" name="Payroll Management" parent="saoenkcobek_hrm_parent_menu" sequence="4"/>
     
-    <menuitem id="hrm_config" name="Configuration" parent="saoenkcobek_hrm_parent_menu" sequence="5"/>
+    <menuitem id="hrm_config" name="Configuration" parent="saoenkcobek_hrm_parent_menu" sequence="5" groups="saoenkcobek_hr_modifier.group_hrm_saoenkcobek_hr"/>
 
     <record model="ir.ui.menu" id="hr.hr_menu_configuration">
         <field name="parent_id" ref="hrm_config"/>

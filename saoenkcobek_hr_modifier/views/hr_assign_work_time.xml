@@ -15,18 +15,18 @@
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only" />
                         <h1>
-                            <field name="name" class="oe_inline"/>
+                            <field name="name" class="oe_inline" attrs="{'readonly':[('state','=','done')]}"/>
                         </h1>
                     </div>
                     <group>
-                        <field name="leader_id"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
+                        <field name="leader_id" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="start_date" attrs="{'readonly':[('state','=','done')]}" widget="date"/>
+                        <field name="end_date" attrs="{'readonly':[('state','=','done')]}" widget="date"/>
                     </group>
                 </sheet>
                 <notebook>
                     <page string="Assign Work Time">
-                        <field name="work_time_ids" nolabel="1">
+                        <field name="work_time_ids" nolabel="1" attrs="{'readonly':[('state','=','done')]}">
                             <tree editable="bottom">
                                 <field name="employee_id"/>
                                 <field name="date"/>
@@ -77,6 +77,6 @@
         <field name="context">{"search_default_my_assign_work_time":1}</field>
     </record>
 
-    <menuitem id="hr_assign_work_time_menu" name="Assign Work Time" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="hr_assign_work_time_action" sequence="1"/>
+    <menuitem id="hr_assign_work_time_menu" name="Assign Work Time" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="hr_assign_work_time_action" sequence="1" groups="saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader"/>
 
 </odoo>

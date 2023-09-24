@@ -6,6 +6,20 @@ class HrEmployee(models.Model):
     basic_salary = fields.Float(string='Basic Salary')
     last_attendance_id = fields.Many2one('hr.attendance', compute='_compute_last_attendance_id', store=True)
     
+    @api.model
+    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
+        domain = domain or []
+        user = self.env.user
+        if user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_hr'):
+            domain.extend([])
+        elif user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader'):
+            employee = self.env['hr.employee'].search([('parent_id', '=', user.employee_id.id)])
+            domain.extend([('id', 'in', employee.ids)])
+        else:
+            domain.extend([('id', '=', user.employee_id.id)])
+            
+        return super(HrEmployee, self).search_read(domain, fields, offset, limit, order)
+    
     def action_set_last_attendance(self):
         _attendance = self._compute_last_attendance_id()
         return _attendance

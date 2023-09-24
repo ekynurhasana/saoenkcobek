@@ -33,6 +33,20 @@ class HrTimeoff(models.Model):
     start_date = fields.Date(string='Start Date', required=True)
     end_date = fields.Date(string='End Date', required=False)
     
+    @api.model
+    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
+        domain = domain or []
+        user = self.env.user
+        if user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_hr'):
+            domain.extend([])
+        elif user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader'):
+            employee = self.env['hr.employee'].search([('parent_id', '=', user.employee_id.id)])
+            domain.extend([('employee_id', 'in', employee.ids)])
+        else:
+            domain.extend([('employee_id', '=', user.employee_id.id)])
+            
+        return super(HrTimeoff, self).search_read(domain, fields, offset, limit, order)
+    
     def ask_approval(self):
         self.status = 'waiting'
         

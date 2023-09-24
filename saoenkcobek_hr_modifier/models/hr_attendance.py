@@ -16,6 +16,20 @@ class HrAttendance(models.Model):
     is_request_edit = fields.Boolean(string='Is Request Edit')
     # is_approved_edit = fields.Boolean(string='Is Approved Edit')
     is_approve_edit = fields.Boolean(string='Is Approve Edit')
+            
+    @api.model
+    def search_read(self, domain=None, fields=None, offset=0, limit=None, order=None):
+        domain = domain or []
+        user = self.env.user
+        if user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_hr'):
+            domain.extend([])
+        elif user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader'):
+            employee = self.env['hr.employee'].search([('parent_id', '=', user.employee_id.id)])
+            domain.extend([('employee_id', 'in', employee.ids)])
+        else:
+            domain.extend([('employee_id', '=', user.employee_id.id)])
+            
+        return super(HrAttendance, self).search_read(domain, fields, offset, limit, order)
     
     def request_edit(self):
         self.is_request_edit = True

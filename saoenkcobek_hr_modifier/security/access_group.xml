@@ -18,4 +18,39 @@
         <field name="name">Work Time Approver</field>
         <field name="category_id" ref="saoenkcobek_hr_modifier.group_approver"/>
     </record>
+
+    <record id="group_hrm_saoenkcobek_parent" model="ir.module.category">
+        <field name="name">HRM Saoenkcobek</field>
+        <field name="description">HRM Saoenkcobek</field>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="group_hrm_saoenkcobek" model="ir.module.category">
+        <field name="name">HRM Saoenkcobek</field>
+        <field name="description">HRM Saoenkcobek</field>
+        <field name="parent_id" ref="saoenkcobek_hr_modifier.group_hrm_saoenkcobek_parent"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="group_hrm_saoenkcobek_staff" model="res.groups">
+        <field name="name">Staff</field>
+        <field name="category_id" ref="saoenkcobek_hr_modifier.group_hrm_saoenkcobek"/>
+    </record>
+
+    <record id="group_hrm_saoenkcobek_leader" model="res.groups">
+        <field name="name">Leader</field>
+        <field name="implied_ids" eval="[(4, ref('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_staff'))]"/>
+        <field name="category_id" ref="saoenkcobek_hr_modifier.group_hrm_saoenkcobek"/>
+    </record>
+
+    <record id="group_hrm_saoenkcobek_hr" model="res.groups">
+        <field name="name">HR</field>
+        <field name="implied_ids" eval="[(4,
+                ref('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader'),
+                ref('saoenkcobek_hr_modifier.group_timeoff_approver'),
+                ref('saoenkcobek_hr_modifier.group_over_time_approver'),
+                ref('saoenkcobek_hr_modifier.group_work_time_approver')
+            )]"/>
+        <field name="category_id" ref="saoenkcobek_hr_modifier.group_hrm_saoenkcobek"/>
+    </record>
 </odoo>

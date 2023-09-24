@@ -14,7 +14,7 @@ class CreatePayroll(models.TransientModel):
         if self.is_all_employee:
             employee_ids = self.env['hr.employee'].search([])
         else:
-            employee_ids = self.employee_ids
+            employee_ids = self.env['hr.employee'].browse(self.employee_ids.ids)
         for employee in employee_ids:
             payroll = self.env['hr.payroll'].create({
                 'employee_id': employee.id,
@@ -23,12 +23,29 @@ class CreatePayroll(models.TransientModel):
             })
             for payroll_template_line in self.payroll_template_id.hr_payroll_line_ids:
                 amount = 0.0
-                if payroll_template_line.payroll_type_id.code == 'BASIC':
-                    amount = employee.basic_salary
                 if payroll_template_line.amount:
                     amount = payroll_template_line.amount
+                    
+                if payroll_template_line.payroll_type_id.code == 'BASIC':
+                    amount = employee.basic_salary
+                    
+                if payroll_template_line.payroll_type_id.code == 'LATE':
+                    late_tolerance = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.late_tolerance')
+                    late_charge = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.late_amount')
+                    attendances = self.env['hr.attendance'].search([('employee_id', '=', employee.id), ('plan_date', '>=', self.start_date), ('plan_date', '<=', self.end_date)])
+                    for attendance in attendances:
+                        if attendance.late > late_tolerance:
+                            amount = float(attendance.late) * float(late_charge)
+                            
+                if payroll_template_line.payroll_type_id.code == 'OT':
+                    overtimes = self.env['hr.overtime'].search([('employee_id', '=', employee.id), ('date', '>=', self.start_date), ('date', '<=', self.end_date)])
+                    if overtimes:
+                        for overtime in overtimes:
+                            amount += overtime.overtime_amount
+                    
                 if payroll_template_line.payroll_type_id.is_fixed_amount:
                     amount = payroll_template_line.payroll_type_id.fixed_amount
+                    
                 if payroll_template_line.payroll_type_id.is_deduction:
                     amount = amount * -1
                 
@@ -37,6 +54,7 @@ class CreatePayroll(models.TransientModel):
                     'payroll_type_id': payroll_template_line.payroll_type_id.id,
                     'amount': amount,
                 })
+                
         return {
             'type': 'ir.actions.act_window',
             'name': 'Payroll',
