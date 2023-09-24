@@ -45,6 +45,7 @@
                 </header>
             </xpath>
             <xpath expr="//field[@name='employee_id']" position="after">
+                <field name="plan_date" attrs="{'readonly':[('is_approve_edit','=',False)]}"/>
                 <field name="plan_check_in" attrs="{'readonly':[('is_approve_edit','=',False)]}"/>
                 <field name="plan_check_out" attrs="{'readonly':[('is_approve_edit','=',False)]}"/>
             </xpath>

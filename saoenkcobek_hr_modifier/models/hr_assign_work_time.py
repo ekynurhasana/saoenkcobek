@@ -53,6 +53,7 @@ class HrAssignWorkTime(models.Model):
                 if line.shift_id.is_off_day == False:
                     self.env['hr.attendance'].create({
                         'employee_id': line.employee_id.id,
+                        'plan_date': line.date,
                         'plan_check_in': datetime.strptime(str(line.date) + ' ' + start_time.strftime('%H:%M:%S'), '%Y-%m-%d %H:%M:%S'),
                         'plan_check_out': datetime.strptime(str(line.date) + ' ' + end_time.strftime('%H:%M:%S'), '%Y-%m-%d %H:%M:%S'),
                         'check_in': False,
@@ -70,7 +71,7 @@ class HrAssignWorkTimeLine(models.Model):
     _name = 'hr.assign.work.time.line'
     _description = 'Assign Work Time Line'
     
-    name = fields.Char(string='Name', required=True)
+    name = fields.Char(string='Name', required=False)
     employee_id = fields.Many2one('hr.employee', string='Employee', required=True)
     date = fields.Date(string='Date', required=True)
     shift_id = fields.Many2one('hr.shift', string='Shift')

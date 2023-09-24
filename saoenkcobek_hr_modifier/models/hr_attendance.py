@@ -7,6 +7,7 @@ class HrAttendance(models.Model):
     check_in = fields.Datetime(string="Check In", default=fields.Datetime.now, required=False)
     plan_check_in = fields.Datetime(string='Plan Check In')
     plan_check_out = fields.Datetime(string='Plan Check Out')
+    plan_date = fields.Date(string='Plan Date')
     attendance_state = fields.Selection([('draft', 'Draft'), ('checked_in', 'Checked In'), ('checked_out', 'Checked Out'), ('absent', 'Absent')], string='Attendance State', default='draft')
     absent_type = fields.Selection([('hadir', 'Hadir'), ('cuti_tahunan', 'Cuti Tahunan'), ('izin', 'Izin'), ('sakit', 'Sakit')], string='Absent Type', default='hadir')
     late = fields.Float(string='Late', compute='_compute_late')
