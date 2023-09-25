@@ -4,8 +4,20 @@ from odoo.tools import format_datetime
 class HrAttendance(models.Model):
     _inherit = 'hr.attendance'
     
+    def default_plan_check_in(self):
+        start_hour = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_start')
+        date = fields.Datetime.now()
+        plan_check_in = date.replace(hour=int(start_hour), minute=0, second=0)
+        return plan_check_in
+    
+    def default_plan_check_out(self):
+        end_hour = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_end')
+        date = fields.Datetime.now()
+        plan_check_out = date.replace(hour=int(end_hour), minute=0, second=0)
+        return plan_check_out
+        
     check_in = fields.Datetime(string="Check In", default=fields.Datetime.now, required=False)
-    plan_check_in = fields.Datetime(string='Plan Check In')
+    plan_check_in = fields.Datetime(string='Plan Check In', default=default_plan_check_in)
     plan_check_out = fields.Datetime(string='Plan Check Out')
     plan_date = fields.Date(string='Plan Date')
     attendance_state = fields.Selection([('draft', 'Draft'), ('checked_in', 'Checked In'), ('checked_out', 'Checked Out'), ('absent', 'Absent')], string='Attendance State', default='draft')

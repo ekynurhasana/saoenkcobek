@@ -7,7 +7,7 @@ class HrOvertime(models.Model):
     
     name = fields.Char(string='Name', copy=False)
     employee_id = fields.Many2one('hr.employee', string='Employee Name')
-    attendance_id = fields.Many2one('hr.attendance', string='Attendance', required=True)
+    attendance_id = fields.Many2one('hr.attendance', string='Attendance', required=True, domain="[('employee_id', '=', employee_id)]")
     date = fields.Date(string='Date', required=True)
     hour = fields.Float(string='Hour', required=True)
     overtime_amount = fields.Float(string='Overtime Amount', compute='_compute_overtime_amount', store=True)
@@ -57,6 +57,11 @@ class HrOvertime(models.Model):
             if float(overtime.hour) > float(max_hour):
                 hour = max_hour
             overtime.overtime_amount = hour * float(rate)
+            
+    @api.onchange('attendance_id')
+    def _onchange_attendance_id(self):
+        for overtime in self:
+            overtime.date = overtime.attendance_id.check_in.date()
     
     
     @api.constrains('hour')

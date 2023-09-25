@@ -60,13 +60,15 @@ class HrEmployee(models.Model):
                     attendance_plan.check_in_longitude = longit
                 return attendance_plan
             else:
+                vals = {
+                    'employee_id': self.id,
+                    'check_in': action_date,
+                    'attendance_state': 'checked_in',
+                    'plan_date': date_now,
+                }
                 if location:
-                    vals = {
-                        'employee_id': self.id,
-                        'check_in': action_date,
-                        'check_in_latitude': latit,
-                        'check_in_longitude': longit,
-                    }
+                    vals['check_in_latitude'] = latit
+                    vals['check_in_longitude'] = longit
                 return self.env['hr.attendance'].create(vals)
         attendance = self.env['hr.attendance'].search([
             ('employee_id', '=', self.id),

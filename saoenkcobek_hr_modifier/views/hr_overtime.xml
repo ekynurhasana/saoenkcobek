@@ -16,9 +16,11 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="employee_id"/>
-                            <field name="date"/>
-                            <field name="hour"/>
+                            <field name="employee_id" attrs="{'readonly':[('state','in',['approved','validate','rejected','cancel'])]}"/>
+                            <field name="attendance_id" domain="[('employee_id','=',employee_id)]" attrs="{'readonly':[('state','in',['approved','validate','rejected','cancel'])]}"/>
+                            <field name="date" attrs="{'readonly':[('state','in',['approved','validate','rejected','cancel'])]}"/>
+                            <field name="hour" attrs="{'readonly':[('state','in',['approved','validate','rejected','cancel'])]}"/>
+                            <field name="overtime_amount" attrs="{'readonly':[('state','in',['approved','validate','rejected','cancel'])]}"/>
                         </group>
                     </group>
                 </sheet>
@@ -48,6 +50,7 @@
                 <field name="employee_id"/>
                 <field name="date"/>
                 <field name="hour"/>
+                <field name="overtime_amount"/>
                 <field name="state"/>
             </tree>
         </field>
