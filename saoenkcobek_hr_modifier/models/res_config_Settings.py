@@ -10,6 +10,9 @@ class ResConfigSettings(models.TransientModel):
     late_tolerance = fields.Float(string='Late Tolerance', config_parameter='saoenkcobek_hr_modifier.late_tolerance')
     late_amount = fields.Float(string='Late Amount', config_parameter='saoenkcobek_hr_modifier.late_amount')
     
+    working_hour_start = fields.Float(string='Working Hour Start', config_parameter='saoenkcobek_hr_modifier.working_hour_start')
+    working_hour_end = fields.Float(string='Working Hour End', config_parameter='saoenkcobek_hr_modifier.working_hour_end')
+    
     def set_values(self):
         res = super(ResConfigSettings, self).set_values()
         self.env['ir.config_parameter'].sudo().set_param('saoenkcobek_hr_modifier.overtime_minimum_hour', self.overtime_minimum_hour)
@@ -17,6 +20,8 @@ class ResConfigSettings(models.TransientModel):
         self.env['ir.config_parameter'].sudo().set_param('saoenkcobek_hr_modifier.overtime_rate', self.overtime_rate)
         self.env['ir.config_parameter'].sudo().set_param('saoenkcobek_hr_modifier.late_tolerance', self.late_tolerance)
         self.env['ir.config_parameter'].sudo().set_param('saoenkcobek_hr_modifier.late_amount', self.late_amount)
+        self.env['ir.config_parameter'].sudo().set_param('saoenkcobek_hr_modifier.working_hour_start', self.working_hour_start)
+        self.env['ir.config_parameter'].sudo().set_param('saoenkcobek_hr_modifier.working_hour_end', self.working_hour_end)
         return res
         
     def get_values(self):
@@ -26,7 +31,9 @@ class ResConfigSettings(models.TransientModel):
             overtime_maximum_hour=float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.overtime_maximum_hour')),
             overtime_rate=float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.overtime_rate')),
             late_tolerance=float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.late_tolerance')),
-            late_amount=float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.late_amount'))
+            late_amount=float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.late_amount')),
+            working_hour_start=float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_start')),
+            working_hour_end=float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_end'))
         )
         return res
     

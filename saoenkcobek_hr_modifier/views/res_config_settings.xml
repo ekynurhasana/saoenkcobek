@@ -9,6 +9,39 @@
                 <attribute name="groups"></attribute>
             </xpath>
             <xpath expr="//div[@data-key='hr_attendance']" position="inside">
+                <h2>Working Hours</h2>
+                <div class="row mt16 o_settings_container" name="overtime_setting_container">
+                    <div class="col-12 col-lg-6 o_setting_box" title="Set overtime rules">
+                        <div class="o_setting_right_pane">
+                            <div class="o_setting_item">
+                                <label for="working_hour_start" class="o_form_label">Working Hour Start</label>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        Start of working hour
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="working_hour_start" class="o_light_label" placeholder="Working Hour Start" widget="time" />
+                                    </div>
+                                </div>
+                            </div><br/>
+                            <div class="o_setting_item">
+                                <label for="working_hour_end" class="o_form_label">Working Hour End</label>
+                                <div class="row">
+                                    <div class="text-muted col-lg-8">
+                                        End of working hour
+                                    </div>
+                                </div>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="working_hour_end" class="o_light_label" placeholder="Working Hour End" widget="time" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <h2>Over Time</h2>
                 <div class="row mt16 o_settings_container" name="overtime_setting_container">
                     <div class="col-12 col-lg-6 o_setting_box" title="Set overtime rules">
