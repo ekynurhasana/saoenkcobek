@@ -17,7 +17,7 @@ class HrEmployee(models.Model):
             ids = []
             ids.extend(employee.ids)
             ids.append(user.employee_id.id)
-            domain.extend([('employee_id', 'in', ids)])
+            domain.extend([('id', 'in', ids)])
         else:
             domain.extend([('id', '=', user.employee_id.id)])
             
