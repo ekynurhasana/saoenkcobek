@@ -1,27 +1,24 @@
 from odoo import models, fields, api, exceptions, _
 from odoo.tools import format_datetime
-import pytz
 
 class HrAttendance(models.Model):
     _inherit = 'hr.attendance'
     
     def default_plan_check_in(self):
-        start_hour = float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_start'))
+        start_hour = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_start')
         date = fields.Datetime.now()
         plan_check_in = date.replace(hour=int(start_hour), minute=0, second=0)
-        plan_check_in = fields.Datetime.to_string(plan_check_in)
         return plan_check_in
     
     def default_plan_check_out(self):
-        end_hour = float(self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_end'))
+        end_hour = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.working_hour_end')
         date = fields.Datetime.now()
         plan_check_out = date.replace(hour=int(end_hour), minute=0, second=0)
-        plan_check_out = fields.Datetime.to_string(plan_check_out)
         return plan_check_out
         
     check_in = fields.Datetime(string="Check In", default=fields.Datetime.now, required=False)
     plan_check_in = fields.Datetime(string='Plan Check In', default=default_plan_check_in)
-    plan_check_out = fields.Datetime(string='Plan Check Out', default=default_plan_check_out)
+    plan_check_out = fields.Datetime(string='Plan Check Out')
     plan_date = fields.Date(string='Plan Date')
     attendance_state = fields.Selection([('draft', 'Draft'), ('checked_in', 'Checked In'), ('checked_out', 'Checked Out'), ('absent', 'Absent')], string='Attendance State', default='draft')
     absent_type = fields.Selection([('hadir', 'Hadir'), ('cuti_tahunan', 'Cuti Tahunan'), ('izin', 'Izin'), ('sakit', 'Sakit')], string='Absent Type', default='hadir')
