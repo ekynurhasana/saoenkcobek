@@ -63,5 +63,5 @@
         <field name="view_mode">tree,form,pivot,graph</field>
     </record>
 
-    <menuitem id="menu_hr_overtime" name="Overtime" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="action_hr_overtime" sequence="30"/>
+    <menuitem id="menu_hr_overtime" name="Overtime" parent="hr_attendance.menu_hr_attendance_manage_attendances" action="action_hr_overtime" sequence="30" groups="saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader"/>
 </odoo>

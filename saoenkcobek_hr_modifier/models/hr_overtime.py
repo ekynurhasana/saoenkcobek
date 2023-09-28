@@ -5,8 +5,16 @@ class HrOvertime(models.Model):
     _name = 'hr.overtime'
     _description = 'HR Overtime'
     
+    def _domain_employee_id(self):
+        user = self.env.user
+        if user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_hr'):
+            return []
+        elif user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader'):
+            employee = self.env['hr.employee'].search([('parent_id', '=', user.employee_id.id)])
+            return [('id', 'in', employee.ids)]
+    
     name = fields.Char(string='Name', copy=False)
-    employee_id = fields.Many2one('hr.employee', string='Employee Name')
+    employee_id = fields.Many2one('hr.employee', string='Employee Name', required=True, domain=_domain_employee_id)
     attendance_id = fields.Many2one('hr.attendance', string='Attendance', required=True, domain="[('employee_id', '=', employee_id)]")
     date = fields.Date(string='Date', required=True)
     hour = fields.Float(string='Hour', required=True)
@@ -28,7 +36,10 @@ class HrOvertime(models.Model):
             domain.extend([])
         elif user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader'):
             employee = self.env['hr.employee'].search([('parent_id', '=', user.employee_id.id)])
-            domain.extend([('employee_id', 'in', employee.ids)])
+            ids = []
+            ids.extend(employee.ids)
+            ids.append(user.employee_id.id)
+            domain.extend([('employee_id', 'in', ids)])
         else:
             domain.extend([('employee_id', '=', user.employee_id.id)])
         return super(HrOvertime, self).search_read(domain, fields, offset, limit, order)

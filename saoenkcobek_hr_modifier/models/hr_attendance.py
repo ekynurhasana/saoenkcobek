@@ -37,7 +37,10 @@ class HrAttendance(models.Model):
             domain.extend([])
         elif user.has_group('saoenkcobek_hr_modifier.group_hrm_saoenkcobek_leader'):
             employee = self.env['hr.employee'].search([('parent_id', '=', user.employee_id.id)])
-            domain.extend([('employee_id', 'in', employee.ids)])
+            ids = []
+            ids.extend(employee.ids)
+            ids.append(user.employee_id.id)
+            domain.extend([('employee_id', 'in', ids)])
         else:
             domain.extend([('employee_id', '=', user.employee_id.id)])
             
@@ -55,7 +58,9 @@ class HrAttendance(models.Model):
         for attendance in self:
             if attendance.check_in and attendance.plan_check_in:
                 if attendance.check_in > attendance.plan_check_in:
-                    attendance.late = attendance.check_in - attendance.plan_check_in
+                    late = attendance.check_in - attendance.plan_check_in
+                    late = late.total_seconds() / 3600
+                    self.late = late
                 else:
                     attendance.late = 0.0
             else:
