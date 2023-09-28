@@ -31,6 +31,7 @@ class HrOvertime(models.Model):
             domain.extend([('employee_id', 'in', employee.ids)])
         else:
             domain.extend([('employee_id', '=', user.employee_id.id)])
+        return super(HrOvertime, self).search_read(domain, fields, offset, limit, order)
     
     def validate(self):
         self.state = 'validate'
@@ -55,13 +56,17 @@ class HrOvertime(models.Model):
             rate = self.env['ir.config_parameter'].sudo().get_param('saoenkcobek_hr_modifier.overtime_rate')
             hour = float(overtime.hour)
             if float(overtime.hour) > float(max_hour):
-                hour = max_hour
+                hour = float(max_hour)
             overtime.overtime_amount = hour * float(rate)
             
     @api.onchange('attendance_id')
     def _onchange_attendance_id(self):
         for overtime in self:
-            overtime.date = overtime.attendance_id.check_in.date()
+            if overtime.attendance_id:
+                if overtime.attendance_id.check_in:
+                    overtime.date = overtime.attendance_id.check_in.date()
+                else:
+                    raise ValidationError(_('Attendance has no check in'))
     
     
     @api.constrains('hour')

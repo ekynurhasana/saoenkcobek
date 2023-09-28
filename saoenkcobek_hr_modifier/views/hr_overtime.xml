@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="ask_approval" string="Request Approval" type="object" class="oe_highlight"/>
+                    <button name="ask_approval" string="Request Approval" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['draft'])]}"/>
                     <button name="approve" string="Approve" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['waiting'])]}" groups="saoenkcobek_hr_modifier.group_over_time_approver"/>
                     <button name="reject" string="Reject" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['waiting'])]}" groups="saoenkcobek_hr_modifier.group_over_time_approver"/>
                     <button name="validate" string="Validate" type="object" class="oe_highlight" attrs="{'invisible':[('state','not in',['approved'])]}"/>

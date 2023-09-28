@@ -60,8 +60,15 @@ class HrTimeoff(models.Model):
         attendance_obj = self.env['hr.attendance']
         attendance_ids = attendance_obj.search([('employee_id', '=', self.employee_id.id), ('plan_date', '>=', self.start_date), ('plan_date', '<=', self.end_date)])
         print(attendance_ids)
-        for attendance in attendance_ids:
-            attendance.absent_type = self.time_off_type
+        if attendance_ids:
+            for attendance in attendance_ids:
+                attendance.absent_type = self.time_off_type
+        else:
+            attendance_obj.create({
+                'employee_id': self.employee_id.id,
+                'absent_type': self.time_off_type,
+                'plan_date': self.start_date
+            })
         self.status = 'validate'
         
     def cancel(self):
